@@ -1,0 +1,11 @@
+.obsidian/workspace*.json
+.obsidian/workspace.json
+.DS_Store
+Thumbs.db
+/tmp/
+
+# Plugin binaries (install via Obsidian community plugins)
+.obsidian/plugins/obsidian-local-rest-api/main.js
+
+# API key
+.obsidian/plugins/obsidian-local-rest-api/data.json

@@ -1,0 +1,29 @@
+{
+  "date": "2026-07-10",
+  "source": "https://dzen.ru/articles?clid=1400",
+  "method": "Chrome CDP (--remote-debugging-port=9222, Node.js WebSocket)",
+  "articles": [
+    {"title": "Главные сериалы лета 2026: громкие новинки и долгожданные продолжения", "url": "https://dzen.ru/a/aiIATp7nPjr8DWwu", "channel": "7ДнейКино", "views": "224 400", "views_raw": "224,4 тыс читали", "time": "4 недели назад"},
+    {"title": "Собчак прокомментировала наряд дочери Маликова за 13 млн рублей", "url": "https://dzen.ru/a/alDWfjRgISluCr4o", "channel": "Кино Mail", "views": "121 400", "views_raw": "121,4 тыс читали", "time": "9 часов назад"},
+    {"title": "Побит рекорд глубины озер центральной России", "url": "https://dzen.ru/a/ak-uZjRgISluBucj", "channel": "Hi-Tech Mail", "views": "89 700", "views_raw": "89,7 тыс читали", "time": "1 день назад"},
+    {"title": "Северными оленями и белыми медведями питались люди в Арктике около 8000 лет назад", "url": "https://dzen.ru/a/akKiQlStahDLx9h8", "channel": "Русское географическое общество", "views": "30 800", "views_raw": "30,8 тыс читали", "time": "1 неделю назад"},
+    {"title": "АвтоВАЗ в 2026 году начнет продажи обновленной Niva Legend и кроссовера Azimut", "url": "https://dzen.ru/a/ajPPUyV-PCISd3AU", "channel": "Автоновости дня", "views": "19 700", "views_raw": "19,7 тыс читали", "time": "3 недели назад"},
+    {"title": "Какие русские фамилии действительно можно считать самыми старыми", "url": "https://dzen.ru/a/akqCW2NZjEwEkB67", "channel": "ЦИФРОХАЙП", "views": "873 300", "views_raw": "873,3 тыс читали", "time": "5 дней назад"},
+    {"title": "Что повара берут с собой на перекус: 5 идей для тех, кто весь день на ногах", "url": "https://dzen.ru/a/akjhhZj-i2r-Zgkx", "channel": "Шеф Влад", "views": "233 800", "views_raw": "233,8 тыс читали", "time": "6 дней назад"},
+    {"title": "Россиянам объяснили, чем отличаются белые и желтые крышки для консервации", "url": "https://dzen.ru/a/akesm8DdYlsm_zgb", "channel": "Hi-Tech Mail", "views": "420 800", "views_raw": "420,8 тыс читали", "time": "1 неделю назад"},
+    {"title": "Режиссёр Звягинцев получил Каннскую ветку и список на уничтожение", "url": "https://dzen.ru/a/akI2AS3Z71G_Q21z", "channel": "Дмитрий Пучков", "views": "208 800", "views_raw": "208,8 тыс читали", "time": "1 неделю назад"},
+    {"title": "Аладдины, баллоны или шаровары? Как носить самые удобные брюки лета 2026", "url": "https://dzen.ru/a/ajqPpe56aC2ror96", "channel": "Мода. Стиль. Личность", "views": "184 000", "views_raw": "184 тыс читали", "time": "1 неделю назад"},
+    {"title": "Стрижка «чашка» снова в моде. Но я бы не советовала её большинству женщин", "url": "https://dzen.ru/a/ajzcFZh54gGGubDy", "channel": "Модный завет", "views": "574 200", "views_raw": "574,2 тыс читали", "time": "2 недели назад"},
+    {"title": "Как четырёхцилиндровый Jeep Grand Cherokee обошёл Lamborghini Urus по мощности", "url": "https://dzen.ru/a/akEfvh85JgNKbUlm", "channel": "Auto People", "views": "40 300", "views_raw": "40,3 тыс читали", "time": "1 неделю назад"},
+    {"title": "Бензин бьёт рекорды за 20 лет: что происходит и как это отразится на наших кошельках", "url": "https://dzen.ru/a/aj-KGyfX7FB11GrV", "channel": "Файнманомика - финансы без паники", "views": "654 000", "views_raw": "654 тыс читали", "time": "1 неделю назад"},
+    {"title": "Чем пахли русские царевны до появления духов", "url": "https://dzen.ru/a/ai_LAWUUUVl5q1jP", "channel": "World Lord: история и короли", "views": "2 080 000", "views_raw": "2,08 млн читали", "time": "3 недели назад"},
+    {"title": "В России хотят пересмотреть ограничения скорости. Минтранс в процессе разработки", "url": "https://dzen.ru/a/akNa21Q8cGMaQRCM", "channel": "ПриветТачка", "views": "354 300", "views_raw": "354,3 тыс читали", "time": "1 неделю назад"},
+    {"title": "Высшее образование в России резко подорожало: что нужно знать абитуриентам", "url": "https://dzen.ru/a/ajpfgq0krnWGEm9j", "channel": "Файнманомика - финансы без паники", "views": "51 300", "views_raw": "51,3 тыс читали", "time": "2 недели назад"},
+    {"title": "Откуда звонят мошенники и почему их сложно вычислить? Разбираемся", "url": "https://dzen.ru/a/akz3QvE0pTX9uOe4", "channel": "Записки Айтишника", "views": "26 100", "views_raw": "26,1 тыс читали", "time": "3 дня назад"},
+    {"title": "Семейный киновечер: 7 фильмов, которые понравятся и детям, и родителям", "url": "https://dzen.ru/a/aiGiIZgEvmAgyx2h", "channel": "7ДнейКино", "views": "61 700", "views_raw": "61,7 тыс читали", "time": "3 недели назад"},
+    {"title": "«Урал» назначил Юрана, Виктор Са покинет «Краснодар». Обзор российского футбола", "url": "https://dzen.ru/a/aixRCHzHDzmd7pyy", "channel": "СпортФакт", "views": "48 700", "views_raw": "48,7 тыс читали", "time": "4 недели назад"},
+    {"title": "Вышел недорогой HONOR 600 Smart 5G с новым чипом Snapdragon и батареей на 7700 мАч", "url": "https://dzen.ru/a/ajTUPvOqTyVcgQah", "channel": "ICHIP.RU", "views": "5 677", "views_raw": "5677 читали", "time": "3 недели назад"},
+    {"title": "Нет, это не запасные рельсы, как мы думали в детстве. Тогда что это?", "url": "https://dzen.ru/a/akjO9WNZjEwEDoxX", "channel": "⚠️ Инженерные Знания", "views": "495 500", "views_raw": "495,5 тыс читали", "time": "6 дней назад"},
+    {"title": "Ту-95ЛАЛ: атомный самолёт СССР, который мог летать месяцами, но стал угрозой для экипажа", "url": "https://dzen.ru/a/akZatov8FxUp0HqM", "channel": "Pochinka_blog", "views": "824 900", "views_raw": "824,9 тыс читали", "time": "6 дней назад"}
+  ]
+}
