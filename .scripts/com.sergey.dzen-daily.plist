@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>            <string>com.sergey.dzen-daily</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>-l</string>
+    <string>-c</string>
+    <string>exec /Users/sergey/Marketing/.scripts/daily-dzen.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>   <integer>20</integer>
+    <key>Minute</key> <integer>0</integer>
+  </dict>
+  <key>WorkingDirectory</key> <string>/Users/sergey/Marketing</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/Users/sergey/.bun/bin:/Users/sergey/.nvm/versions/node/v22.23.1/bin</string>
+    <key>HOME</key> <string>/Users/sergey</string>
+    <key>NVM_DIR</key> <string>/Users/sergey/.nvm</string>
+  </dict>
+  <key>StandardOutPath</key>  <string>/tmp/dzen-daily.out.log</string>
+  <key>StandardErrorPath</key><string>/tmp/dzen-daily.err.log</string>
+  <key>RunAtLoad</key>        <false/>
+</dict>
+</plist>
