@@ -65,43 +65,41 @@ echo "→ Stage 3: Creating article notes"
 python3 "$VAULT/.scripts/create-article-notes.py" "$TODAY" >> "$LOG" 2>&1
 echo "  Notes created"
 
-# ── Stage 4: Claude with 4 agents ───────────────────────────
-echo "→ Stage 4: Claude analysis (4 agents)"
-# settings.json env provides ANTHROPIC_AUTH_TOKEN etc.
+# ── Stage 4: 4 parallel Claude agents ──────────────────────
+echo "→ Stage 4: Launching 4 parallel Claude agents"
+# settings.json permissions allow Bash/Read/Write/Agent for this vault
+# settings.json env provides ANTHROPIC_AUTH_TOKEN
 
-claude -p "$(cat <<PROMPT
-Ты — marketing-аналитик. Только что спарсены топ-статьи сегодняшнего Яндекс.Дзена (${TODAY}). Они лежат в:
-- Raw JSON: $VAULT/Dzen/Raw/${TODAY}.json
-- Готовые заметки: $VAULT/Dzen/Articles/${TODAY}/
-- Obsidian vault: $VAULT (REST API http://127.0.0.1:27123/vault/, ключ из env OBSIDIAN_REST_API_KEY)
+RAWF="$VAULT/Dzen/Raw/${TODAY}.json"
+API="http://127.0.0.1:27123"
 
-Твоя задача — разбить работу на 4 агента (запускай их ПАРАЛЛЕЛЬНО через Agent tool):
+# Agent 1: Researcher
+claude -p "Ты — marketing-аналитик Яндекс.Дзена. Прочитай $RAWF (20 статей). Дай анализ: топ-5 по просмотрам, группы тем, 6 категорий заголовков с подсчётом, доминирующие каналы. Сохрани ВСЕ результаты через REST API:
+- PUT $API/vault/Dzen/Patterns/Hook%20Patterns.md (Authorization: Bearer \$OBSIDIAN_REST_API_KEY, Content-Type: text/markdown). YAML frontmatter: date: ${TODAY}. Включи таблицу паттернов заголовков с примерами и средними просмотрами.
+- PUT $API/vault/Dzen/Patterns/Topic%20Heatmap.md — тепловая карта тем: сколько статей, сумма просмотров, средний охват.
+Используй /usr/bin/curl для всех запросов. Добавляй [[wikilinks]] на Dzen/Daily/${TODAY}." \
+  >> "$LOG" 2>&1 &
 
-🎯 **Agent 1 — Researcher (анализ паттернов)**
-Прочитай Dzen/Raw/${TODAY}.json. Выдели:
-- Топ-5 статей по просмотрам
-- Общие темы и повторяющиеся форматы
-- Паттерны заголовков (вопросы, цифры, провокация, контраст)
-- Какие каналы доминируют
-Сохрани выводы через REST API PUT в Dzen/Patterns/Hook Patterns.md и Dzen/Patterns/Topic Heatmap.md. YAML frontmatter: date: ${TODAY}.
+# Agent 2: Brainstormer
+claude -p "Ты — креативный редактор Яндекс.Дзена. Прочитай $RAWF. На основе реальных популярных статей придумай 5 новых статей на русском языке. Для каждой: заголовок, почему сработает (какой паттерн из топа), структура (крючок→тело→раскрытие), на какую статью из топа похожа. Сохрани через REST API:
+- PUT $API/vault/Dzen/Ideas/${TODAY}.md (Authorization: Bearer \$OBSIDIAN_REST_API_KEY, Content-Type: text/markdown). YAML frontmatter: date: ${TODAY}. Добавь [[wikilinks]] на Dzen/Daily/${TODAY} и референсные статьи." \
+  >> "$LOG" 2>&1 &
 
-🎯 **Agent 2 — Brainstormer (генерация идей)**
-На основе паттернов от Researcher придумай 5 новых статей для Дзена — с заголовками, примерной структурой и почему это сработает. Сохрани через REST API в Dzen/Ideas/${TODAY}.md.
+# Agent 3: Copywriter
+claude -p "Ты — редактор заголовков Дзена. Прочитай $RAWF. Выбери 5 лучших статей. Для каждой придумай минимум 2 A/B варианта заголовка. Оцени каждый по шкалам: кликабельность (1-10), интрига (1-10), ясность (1-10). Дай рекомендации по усилению (глаголы, цифры, «на самом деле», контраст). Сохрани через REST API:
+- PUT $API/vault/Dzen/Ideas/${TODAY}-validated.md (Authorization: Bearer \$OBSIDIAN_REST_API_KEY, Content-Type: text/markdown). YAML frontmatter: date: ${TODAY}. [[wikilinks]] на Dzen/Daily/${TODAY}." \
+  >> "$LOG" 2>&1 &
 
-🎯 **Agent 3 — Copywriter (A/B заголовки)**
-Возьми идеи от Brainstormer. Предложи минимум 2 A/B-варианта заголовка на каждую идею. Проверь на кликабельность. Сохрани через REST API в Dzen/Ideas/${TODAY}-validated.md.
+# Agent 4: Project Manager
+claude -p "Ты — project manager. Для сегодняшнего анализа Дзена (${TODAY}) заверши работу. Прочитай $RAWF и готовые заметки в Dzen/Articles/${TODAY}/. Сделай:
+1. PUT $API/vault/Dzen/Daily/${TODAY}.md — сводный дайджест с таблицей топ-10. В таблице ОБЯЗАТЕЛЬНО 5 колонок: # | Заголовок | Канал | Просмотры | 🔗 Дзен (ссылка на dzen.ru) | 📝 Obsidian ([[wikilink]] на заметку). Добавь паттерны дня, идеи, гипотезы.
+2. PUT $API/vault/Dzen/Index.md — обнови MOC: добавь сегодняшний дайджест, идеи, валидированные заголовки.
+3. PUT $API/vault/Dzen/Playbook.md — обнови накопленную стратегию новыми паттернами (сравни с предыдущими днями если есть).
+4. Отправь пуш: /usr/bin/curl -H 'Title: Dzen Daily ${TODAY} ✅' -H 'Priority: default' -d '📊 Топ Дзена за ${TODAY}. N статей, дайджест в Obsidian.' https://ntfy.sh/sergey-test-4729
+Все PUT через REST API (Authorization: Bearer \$OBSIDIAN_REST_API_KEY, Content-Type: text/markdown). Везде YAML frontmatter с date: ${TODAY} и [[wikilinks]]." \
+  >> "$LOG" 2>&1 &
 
-🎯 **Agent 4 — Project Manager (дайджест + пуш)**
-Собери всё вместе:
-- Напиши Dzen/Daily/${TODAY}.md — сводный дайджест: таблица топ-10 (с колонками: 🔗 ссылка на Дзен, 📝 [[wikilink]] на заметку в Obsidian), ключевые выводы
-- Обнови Dzen/Index.md — добавь ссылку на сегодняшний дайджест
-- Отправь результат в ntfy.sh:
-  curl -H "Title: Dzen Daily ${TODAY}" -H "Priority: default" -H "Click: http://127.0.0.1:27123/vault/Dzen/Daily/${TODAY}.md" \
-    -d "Топ-5 Дзена за сегодня. Читай дайджест в Obsidian." https://ntfy.sh/sergey-test-4729
-
-**Важно:** все файлы сохраняй через Obsidian REST API (PUT http://127.0.0.1:27123/vault/путь/к/файлу.md, Authorization: Bearer \$OBSIDIAN_REST_API_KEY). У каждой заметки YAML frontmatter с date: ${TODAY}. В дайджесте ОБЯЗАТЕЛЬНО делай таблицу с двумя ссылками: внешняя (🔗 на dzen.ru) и внутренняя (📝 [[wikilink]]).
-PROMPT
-)" >> "$LOG" 2>&1
-
-echo "→ Done: $(date)"
+# Wait for all 4 agents
+wait
+echo "→ All 4 agents finished: $(date)"
 echo "=== PIPELINE COMPLETE ==="
