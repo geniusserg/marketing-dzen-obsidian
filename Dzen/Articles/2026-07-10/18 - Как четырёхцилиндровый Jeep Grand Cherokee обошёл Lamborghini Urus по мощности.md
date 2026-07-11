@@ -11,8 +11,8 @@ hooks: []
 
 # Как четырёхцилиндровый Jeep Grand Cherokee обошёл Lamborghini Urus по мощности
 
-**Канал:** Auto People  
-**Просмотров:** 40,3 тыс читали  
+**Канал:** Auto People
+**Просмотров:** 40,3 тыс читали
 **Опубликовано:** 1 неделю назад
 
 🔗 [Читать на Дзене](https://dzen.ru/a/akEfvh85JgNKbUlm)
