@@ -74,24 +74,24 @@ RAWF="$VAULT/Dzen/Raw/${TODAY}.json"
 API="http://127.0.0.1:27123"
 
 # Agent 1: Researcher
-claude -p "Ты — marketing-аналитик Яндекс.Дзена. Прочитай $RAWF (20 статей). Дай анализ: топ-5 по просмотрам, группы тем, 6 категорий заголовков с подсчётом, доминирующие каналы. Сохрани ВСЕ результаты через REST API:
+claude -p --dangerously-skip-permissions "Ты — marketing-аналитик Яндекс.Дзена. Прочитай $RAWF (20 статей). Дай анализ: топ-5 по просмотрам, группы тем, 6 категорий заголовков с подсчётом, доминирующие каналы. Сохрани ВСЕ результаты через REST API:
 - PUT $API/vault/Dzen/Patterns/Hook%20Patterns.md (Authorization: Bearer \$OBSIDIAN_REST_API_KEY, Content-Type: text/markdown). YAML frontmatter: date: ${TODAY}. Включи таблицу паттернов заголовков с примерами и средними просмотрами.
 - PUT $API/vault/Dzen/Patterns/Topic%20Heatmap.md — тепловая карта тем: сколько статей, сумма просмотров, средний охват.
 Используй /usr/bin/curl для всех запросов. Добавляй [[wikilinks]] на Dzen/Daily/${TODAY}." \
   >> "$LOG" 2>&1 &
 
 # Agent 2: Brainstormer
-claude -p "Ты — креативный редактор Яндекс.Дзена. Прочитай $RAWF. На основе реальных популярных статей придумай 5 новых статей на русском языке. Для каждой: заголовок, почему сработает (какой паттерн из топа), структура (крючок→тело→раскрытие), на какую статью из топа похожа. Сохрани через REST API:
+claude -p --dangerously-skip-permissions "Ты — креативный редактор Яндекс.Дзена. Прочитай $RAWF. На основе реальных популярных статей придумай 5 новых статей на русском языке. Для каждой: заголовок, почему сработает (какой паттерн из топа), структура (крючок→тело→раскрытие), на какую статью из топа похожа. Сохрани через REST API:
 - PUT $API/vault/Dzen/Ideas/${TODAY}.md (Authorization: Bearer \$OBSIDIAN_REST_API_KEY, Content-Type: text/markdown). YAML frontmatter: date: ${TODAY}. Добавь [[wikilinks]] на Dzen/Daily/${TODAY} и референсные статьи." \
   >> "$LOG" 2>&1 &
 
 # Agent 3: Copywriter
-claude -p "Ты — редактор заголовков Дзена. Прочитай $RAWF. Выбери 5 лучших статей. Для каждой придумай минимум 2 A/B варианта заголовка. Оцени каждый по шкалам: кликабельность (1-10), интрига (1-10), ясность (1-10). Дай рекомендации по усилению (глаголы, цифры, «на самом деле», контраст). Сохрани через REST API:
+claude -p --dangerously-skip-permissions "Ты — редактор заголовков Дзена. Прочитай $RAWF. Выбери 5 лучших статей. Для каждой придумай минимум 2 A/B варианта заголовка. Оцени каждый по шкалам: кликабельность (1-10), интрига (1-10), ясность (1-10). Дай рекомендации по усилению (глаголы, цифры, «на самом деле», контраст). Сохрани через REST API:
 - PUT $API/vault/Dzen/Ideas/${TODAY}-validated.md (Authorization: Bearer \$OBSIDIAN_REST_API_KEY, Content-Type: text/markdown). YAML frontmatter: date: ${TODAY}. [[wikilinks]] на Dzen/Daily/${TODAY}." \
   >> "$LOG" 2>&1 &
 
 # Agent 4: Project Manager
-claude -p "Ты — project manager. Для сегодняшнего анализа Дзена (${TODAY}) заверши работу. Прочитай $RAWF и готовые заметки в Dzen/Articles/${TODAY}/. Сделай:
+claude -p --dangerously-skip-permissions "Ты — project manager. Для сегодняшнего анализа Дзена (${TODAY}) заверши работу. Прочитай $RAWF и готовые заметки в Dzen/Articles/${TODAY}/. Сделай:
 1. PUT $API/vault/Dzen/Daily/${TODAY}.md — сводный дайджест с таблицей топ-10. В таблице ОБЯЗАТЕЛЬНО 5 колонок: # | Заголовок | Канал | Просмотры | 🔗 Дзен (ссылка на dzen.ru) | 📝 Obsidian ([[wikilink]] на заметку). Добавь паттерны дня, идеи, гипотезы.
 2. PUT $API/vault/Dzen/Index.md — обнови MOC: добавь сегодняшний дайджест, идеи, валидированные заголовки.
 3. PUT $API/vault/Dzen/Playbook.md — обнови накопленную стратегию новыми паттернами (сравни с предыдущими днями если есть).
